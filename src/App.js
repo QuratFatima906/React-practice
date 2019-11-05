@@ -20,11 +20,20 @@ import React from 'react';
           constructor(){
             super();
             this.state = {
-              txt: "Hey I'm state text"
+              txt: "Hey I'm state text",
+              currentEvent: "---"
             }
+            this.update = this.update.bind(this)
+            this.updateEvent = this.updateEvent.bind(this)
           }
           update(e){
-            this.setState({txt: e.target.value})
+            this.setState({
+              txt: e.target.value
+
+            })
+          }
+          updateEvent(e){
+            this.setState({currentEvent: e.type})
           }
           render(){
             return(
@@ -32,13 +41,21 @@ import React from 'react';
               <h1>{this.state.txt}</h1>
               <Widget update = {this.update.bind(this)}/>
               <Button>I <Heart /> React</Button>
+              <h1>{this.state.currentEvent}</h1>
+              <textarea 
+              onKeyPress = {this.updateEvent}
+              onCopy = {this.updateEvent}
+              onPaste = {this.updateEvent}
+              onChange = {this.updateEvent}
+              cols ="30"
+              rows = "10" />
               </div>
               )
           }
         }
 
         const Widget = (props) => <input type="text"
-              onChange = {props.update}/>
+        onChange = {props.update}/>
         const Button = (props) => <button>{props.children}</button>
         const Heart = (props) => <span>&hearts;</span>
 
